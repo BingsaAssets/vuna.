@@ -1,9 +1,7 @@
 <div align="center">
 
 <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 60px 20px; border-radius: 20px; margin-bottom: 30px;">
-  <h1 style="color: #ffffff; font-family: sans-serif; font-size: 70px; margin: 0; letter-spacing: -2px;">VUNA</h1>
-  <p style="color: #94a3b8; font-size: 20px; font-weight: 300; margin-top: 10px;">The Premier Digital Entertainment Gateway</p>
-  <br />
+  <h1 style="color: #ffffff; font-family: sans-serif; font-size: 70px; margin: 0; letter-spacing: -2px;">Vuna.</h1>
   <kbd>ENTERTAINMENT</kbd> &nbsp; <kbd>DISTRIBUTION</kbd> &nbsp; <kbd>PERFORMANCE</kbd>
 </div>
 
