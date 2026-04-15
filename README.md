@@ -1,65 +1,73 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/render?type=soft&color=auto&height=250&section=header&text=VUNA&fontSize=90&animation=fadeIn" width="100%" />
+<div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 60px 20px; border-radius: 20px; margin-bottom: 30px;">
+  <h1 style="color: #ffffff; font-family: sans-serif; font-size: 70px; margin: 0; letter-spacing: -2px;">VUNA</h1>
+  <p style="color: #94a3b8; font-size: 20px; font-weight: 300; margin-top: 10px;">The Premier Digital Entertainment Gateway</p>
+  <br />
+  <kbd>ENTERTAINMENT</kbd> &nbsp; <kbd>DISTRIBUTION</kbd> &nbsp; <kbd>PERFORMANCE</kbd>
+</div>
 
-<br/>
+<div style="max-width: 700px; margin: 0 auto; line-height: 1.8;">
+  <h2 style="color: #334155; font-size: 32px; border: none;">Beyond Boundaries.</h2>
+  <p style="font-size: 18px; color: #475569;">
+    Vuna is a high-performance distribution portal designed for the modern web. 
+    By centralizing the internet's most sought-after games and music into one cohesive experience, 
+    we provide a seamless escape through a refined, distraction-free interface.
+  </p>
+</div>
 
-## 🌌 **UNLIMITED ACCESS. ZERO FRICTION.**
-**Vuna** is the premier destination for high-speed web entertainment.  
-We’ve stripped away the noise to deliver a pure, high-octane experience for games and music.
+<br />
 
-<br/>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; margin: 40px 0;">
+  
+  <div style="flex: 1; min-width: 250px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <h3 style="color: #0f172a; margin-top: 0;">🎮 Game Distribution</h3>
+    <p style="color: #64748b; font-size: 15px;">Access a massive catalog of high-fidelity HTML5 titles. No downloads, no installs—just instant interaction.</p>
+  </div>
 
----
+  <div style="flex: 1; min-width: 250px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <h3 style="color: #0f172a; margin-top: 0;">🎵 Sonic Library</h3>
+    <p style="color: #64748b; font-size: 15px;">A curated stream of music and audio. Vuna provides the soundtrack to your productivity and downtime alike.</p>
+  </div>
 
-<table border="0" cellpadding="10">
-  <tr>
-    <td width="50%" align="center">
-      <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/gamepad-2.svg" width="50" height="50" />
-      <h3>**ELITE GAMING**</h3>
-      <p>A hand-curated library of the web's most addictive HTML5 titles. Instant play, no downloads.</p>
-    </td>
-    <td width="50%" align="center">
-      <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/music.svg" width="50" height="50" />
-      <h3>**VIBE CONTROL**</h3>
-      <p>Seamless music distribution. High-fidelity tracks curated for the perfect background atmosphere.</p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/zap.svg" width="50" height="50" />
-      <h3>**INSANE SPEED**</h3>
-      <p>Optimized with a "speed-first" philosophy. No bloatware. No lag. Just pure performance.</p>
-    </td>
-    <td width="50%" align="center">
-      <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/shield-check.svg" width="50" height="50" />
-      <h3>**CLEAN UI**</h3>
-      <p>A distraction-free interface designed to look great and stay out of your way.</p>
-    </td>
-  </tr>
-</table>
+</div>
 
----
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; margin-bottom: 40px;">
 
-<br/>
+  <div style="flex: 1; min-width: 250px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <h3 style="color: #0f172a; margin-top: 0;">⚡ Peak Performance</h3>
+    <p style="color: #64748b; font-size: 15px;">Engineered for speed. Vuna bypasses the bloat of traditional media sites to offer sub-second loading times.</p>
+  </div>
 
-## 🚀 **THE VUNA STANDARD**
+  <div style="flex: 1; min-width: 250px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <h3 style="color: #0f172a; margin-top: 0;">📱 Modern UI</h3>
+    <p style="color: #64748b; font-size: 15px;">A fully responsive, fluid design that looks and feels native on any device, from desktops to mobile browsers.</p>
+  </div>
 
-### 💎 **Quality Over Quantity**
-We don't host thousands of broken links. We distribute a polished selection of content that actually works, every time you click.
+</div>
 
-### 📱 **Universal Compatibility**
-Whether you are on a desktop, a Chromebook, or a mobile device, Vuna scales perfectly to your screen size for a native-app feel.
+<hr style="border: 0; height: 1px; background: #e2e8f0;" />
 
-### 🌐 **Always Evolving**
-The Vuna library is updated constantly with new releases, trending hits, and community favorites.
+<div style="padding: 40px 0;">
+  <h2 style="border: none; color: #1e293b;">The Vuna Standard</h2>
+  <p style="color: #475569; max-width: 600px; margin: 0 auto 20px auto;">
+    We believe in the power of unhindered access. Vuna is constantly updated with trending content, ensuring that the gateway is never stagnant and the quality remains elite.
+  </p>
+  <br />
+  <div style="background: #0f172a; color: #ffffff; padding: 15px 30px; border-radius: 50px; display: inline-block; font-weight: bold; text-decoration: none;">
+    LIVE ACCESS ENABLED
+  </div>
+</div>
 
-<br/>
+<br />
 
----
-
-<img src="https://capsule-render.vercel.app/render?type=soft&color=auto&height=100&section=footer&text=VUNA%20ENTERTAINMENT&fontSize=30" width="100%" />
-
-<sub>**Pure Entertainment Distributor** Copyright © 2026 Vuna. All rights reserved.</sub>
+<div style="background: #f8fafc; padding: 40px; border-radius: 20px; border: 1px solid #e2e8f0;">
+  <p style="color: #94a3b8; font-size: 14px; margin: 0;">
+    Vuna is an independent digital media distributor. 
+    <br />
+    All content is provided for entertainment purposes.
+  </p>
+  <h4 style="color: #475569; margin-top: 20px; border: none;">VUNA © 2026</h4>
+</div>
 
 </div>
