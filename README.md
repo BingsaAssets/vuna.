@@ -2,11 +2,10 @@
 
 <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 60px 20px; border-radius: 20px; margin-bottom: 30px;">
   <h1 style="color: #ffffff; font-family: sans-serif; font-size: 70px; margin: 0; letter-spacing: -2px;">Vuna.</h1>
-  <kbd>Blockers are unseen.</kbd>
+    <h2 style="color: #334155; font-size: 32px; border: none;">Beyond Boundaries.</h2>
 </div>
 
 <div style="max-width: 700px; margin: 0 auto; line-height: 1.8;">
-  <h2 style="color: #334155; font-size: 32px; border: none;">Beyond Boundaries.</h2>
   <p style="font-size: 18px; color: #475569;">
     Vuna is a high-performance distribution portal designed for the modern web. 
     By centralizing the internet's most sought-after games and music into one cohesive experience, 
