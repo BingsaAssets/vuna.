@@ -2,7 +2,7 @@
 
 <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 60px 20px; border-radius: 20px; margin-bottom: 30px;">
   <h1 style="color: #ffffff; font-family: sans-serif; font-size: 70px; margin: 0; letter-spacing: -2px;">Vuna.</h1>
-  <kbd>ENTERTAINMENT</kbd> &nbsp; <kbd>DISTRIBUTION</kbd> &nbsp; <kbd>PERFORMANCE</kbd>
+  <kbd>Blockers are unseen.</kbd>
 </div>
 
 <div style="max-width: 700px; margin: 0 auto; line-height: 1.8;">
