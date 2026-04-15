@@ -1,30 +1,54 @@
-# 🍒 Vuna
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Vuna-Online-brightgreen?style=for-the-badge&logo=rocket" />
-  <img src="https://img.shields.io/badge/Content-Unblocked-blue?style=for-the-badge&logo=gamepad" />
-  <img src="https://img.shields.io/badge/Speed-Flash-red?style=for-the-badge&logo=lightning" />
-</p>
+# 🍒 VUNA
+### *The Next Generation of Web Entertainment*
+
+<img src="https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white" /> <img src="https://img.shields.io/badge/Vibe-Minimal-black?style=for-the-badge&logo=apple&logoColor=white" /> <img src="https://img.shields.io/badge/Performance-100%25-orange?style=for-the-badge&logo=speedtest&logoColor=white" />
+
+<br/>
+
+<table width="100%">
+  <tr>
+    <td align="center" width="33%">
+      <h3>🕹️ PLAY</h3>
+      <p>High-quality HTML5 games sourced from the web's best developers.</p>
+    </td>
+    <td align="center" width="33%">
+      <h3>🎵 LISTEN</h3>
+      <p>Seamless music distribution for the ultimate background vibe.</p>
+    </td>
+    <td align="center" width="33%">
+      <h3>⚡ SPEED</h3>
+      <p>Built for speed and optimized for bypass-heavy networks.</p>
+    </td>
+  </tr>
+</table>
 
 ---
 
-### ⚡ The Ultimate Web Portal
-Vuna is a high-performance, lightweight hub for digital entertainment. Access a curated library of games and music through a clean, distraction-free interface.
+</div>
 
-### 🎮 Features
-* **Lightning Fast** – Zero bloat, instant load times.
-* **Massive Library** – High-quality games and music tracks.
-* **Modern UI** – Sleek, responsive, and mobile-ready.
-* **Pure Distribution** – A centralized gateway to the best content on the web.
+## 💎 The Experience
+Vuna is a premium portal designed to bridge the gap between users and digital entertainment. We act as a centralized distributor, bringing the internet's most popular games and music into one cohesive, ultra-fast interface.
 
-### 🛠️ Directory
-* **`assets/`** – Styles and branding.
-* **`games/`** – The game database.
-* **`music/`** – Curated audio streams.
-* **`index.html`** – The main portal.
+### 🛠️ Architecture
+<pre>
+vuna/
+├── 📂 assets/       # Visual identity & CSS
+├── 📂 core/         # Portal logic & routing
+├── 📂 lib/          # Game & Music databases
+└── 📄 index.html    # The Gateway
+</pre>
 
----
+### 🌌 Why Vuna?
+- **Zero Latency:** No heavy scripts, just instant loading.
+- **Clean UI:** No intrusive pop-ups, just the content you want.
+- **Always Available:** Designed for high uptime and accessibility.
 
-<p align="center">
-  <b>Elevate your downtime with Vuna.</b>
-</p>
+<br/>
+
+<div align="center">
+  <sub>Built for the community. Distributed with care.</sub>
+  <br/>
+  <b>Vuna © 2026</b>
+</div>
