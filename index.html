@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="form-action 'none'; child-src 'self' blob: https://vidrock.net https://vidlink.pro https://moviesapi.to;">
     <title>vuna.</title>
     <!-- Vanta Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -166,7 +167,7 @@
             gap: 15px;
         }
 
-        #music-search-input {
+        #music-search-input, #movies-search-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -178,7 +179,7 @@
             transition: all 0.3s;
         }
 
-        #music-search-input:focus {
+        #music-search-input:focus, #movies-search-input:focus {
             border-color: rgba(255, 255, 255, 0.4);
             background: rgba(255, 255, 255, 0.08);
         }
@@ -884,6 +885,24 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+        }
+
+        .ad-shield {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .ad-shield.hidden {
+            display: none;
+        }
+
         .control-bar {
             position: absolute;
             bottom: 0;
@@ -1114,7 +1133,48 @@
                 </div>
 
                 <div class="music-grid" id="music-results">
-                    <!-- Tracks here -->
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                        <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                        <p>Please search for results!</p>
+                    </div>
+                </div>
+                <div id="music-pagination" style="display:none; justify-content:center; width:100%; margin-bottom:40px;">
+                    <button class="game-back-btn" onclick="loadNextMusicPage()">
+                        Next Page <i data-lucide="arrow-right" size="16"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movies Section -->
+        <section id="movies-content" class="page-section">
+            <div id="movies-tab" class="tab-inner">
+                <div class="music-header-box" id="movies-header">
+                    <div class="search-module">
+                        <input type="text" id="movies-search-input" placeholder="Search movies...">
+                    </div>
+                </div>
+                <div class="music-grid" id="movies-results">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                        <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                        <p>Please search for results!</p>
+                    </div>
+                </div>
+            </div>
+            <div id="movies-player-view" class="tab-inner" style="display:none; width: 100%; padding-bottom:40px;">
+                <div class="game-view-container" style="width: 100%;">
+                    <div class="game-controls">
+                        <button class="game-back-btn" onclick="closeMovie()">
+                            <i data-lucide="arrow-left" size="16"></i> Back to Movies
+                        </button>
+                    </div>
+                    <div class="iframe-wrapper" id="movie-wrapper">
+                        <div id="movie-click-shield" class="ad-shield"></div>
+                        <iframe id="movie-frame" src="" class="game-frame" style="height:100%;" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div id="movie-source-switcher" style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                        <!-- Populated by startSmartPlay -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -1190,19 +1250,23 @@
                         <!-- Credits -->
                         <div id="settings-tab-credits" class="settings-tab-content" style="display:none;">
                             <div class="settings-panel-title">Credits</div>
-                            <div class="settings-panel-desc">The people and services behind vuna.</div>
+                            <div class="settings-panel-desc">The things that make Vuna possible.</div>
                             <div
                                 style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px;">
                                 <div class="track-card" style="cursor:default; padding: 24px;">
                                     <h3 style="margin-bottom:8px; font-size:1rem;">d4rkkn1ght</h3>
-                                    <p style="opacity:0.5; font-size:0.85rem;">Developer &amp; Designer</p>
+                                    <p style="opacity:0.5; font-size:0.85rem;">Owner &amp; Developer</p>
                                 </div>
                                 <div class="track-card" style="cursor:default; padding: 24px;">
                                     <h3 style="margin-bottom:8px; font-size:1rem;">VAPOR</h3>
                                     <p style="opacity:0.5; font-size:0.85rem;">Music Provider</p>
                                 </div>
                                 <div class="track-card" style="cursor:default; padding: 24px;">
-                                    <h3 style="margin-bottom:8px; font-size:1rem;">gn-math</h3>
+                                    <h3 style="margin-bottom:8px; font-size:1rem;">darifari35214</h3>
+                                    <p style="opacity:0.5; font-size:0.85rem;">Designer &amp; Tester</p>
+                                </div>
+                                <div class="track-card" style="cursor:default; padding: 24px;">
+                                    <h3 style="margin-bottom:8px; font-size:1rem;">UGS</h3>
                                     <p style="opacity:0.5; font-size:0.85rem;">Games</p>
                                 </div>
                             </div>
@@ -1247,6 +1311,7 @@
     <nav class="sidebar" id="sidebar">
         <div class="nav-item active" data-tab="home"><i data-lucide="home"></i></div>
         <div class="nav-item" data-tab="music"><i data-lucide="music"></i></div>
+        <div class="nav-item" data-tab="movies"><i data-lucide="clapperboard"></i></div>
         <div class="nav-item" data-tab="games"><i data-lucide="gamepad-2"></i></div>
         <div class="nav-item" data-tab="settings"><i data-lucide="settings"></i></div>
     </nav>
@@ -1282,6 +1347,35 @@
     </div>
 
     <script>
+        // --- ANTI-AD DEFENSE SYSTEM ---
+        function neutralizeAds() {
+            window.open = function() { 
+                console.warn("Blocked a popup attempt."); 
+                return null; 
+            };
+
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                try {
+                    if (iframe.contentWindow) {
+                        iframe.contentWindow.open = function() { return null; };
+                    }
+                } catch (e) {}
+            });
+        }
+
+        setInterval(neutralizeAds, 500);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const shield = document.getElementById('movie-click-shield');
+            if (shield) {
+                shield.addEventListener('click', function() {
+                    this.classList.add('hidden');
+                    console.log("Shield deactivated. Real player accessible.");
+                });
+            }
+        });
+
         lucide.createIcons();
 
         const subtitles = ["vuna got the best games❤️‍🩹", "smoothwall is bad at blockin", "if you are a blocker this is not games", "haha vuna is gud"];
@@ -1383,10 +1477,13 @@
         const lyricsOverlay = document.getElementById('lyrics-overlay');
         const lyricsContent = document.getElementById('lyrics-content');
 
-        async function fetchSongs(query) {
+        let currentMusicPage = 1;
+        let currentQuery = '';
+
+        async function fetchSongs(query, page = 1) {
             resultsGrid.innerHTML = '<div class="loader-container"><div class="spinner"></div></div>';
             try {
-                const response = await fetch(`https://ess-education.org/worker/music/tidal/search/tracks?q=${encodeURIComponent(query)}&max=20&page=1`);
+                const response = await fetch(`https://ess-education.org/worker/music/tidal/search/tracks?q=${encodeURIComponent(query)}&max=20&page=${page}`);
                 const data = await response.json();
                 return data.items || [];
             } catch (err) { return []; }
@@ -1410,6 +1507,14 @@
         }
 
         function renderTracks(tracks) {
+            if (!tracks || tracks.length === 0) {
+                 resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                     <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                     <p>No results found! Try another search.</p>
+                 </div>`;
+                 lucide.createIcons();
+                 return;
+            }
             resultsGrid.innerHTML = tracks.map(track => {
                 const cover = `https://resources.tidal.com/images/${track.album.cover.replace(/-/g, '/')}/640x640.jpg`;
                 return `
@@ -1553,11 +1658,123 @@
         }
 
         searchInput.addEventListener('keypress', async (e) => {
-            if (e.key === 'Enter' && searchInput.value.trim() !== '') {
-                const results = await fetchSongs(searchInput.value);
+            if (e.key === 'Enter') {
+                if (searchInput.value.trim() === '') {
+                    currentQuery = '';
+                    resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                        <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                        <p>Please search for results!</p>
+                    </div>`;
+                    document.getElementById('music-pagination').style.display = 'none';
+                    lucide.createIcons();
+                    return;
+                }
+                currentQuery = searchInput.value.trim();
+                currentMusicPage = 1;
+                const results = await fetchSongs(currentQuery, currentMusicPage);
                 renderTracks(results);
+                document.getElementById('music-pagination').style.display = results.length > 0 ? 'flex' : 'none';
+                lucide.createIcons();
             }
         });
+
+        async function loadNextMusicPage() {
+            if (!currentQuery) return;
+            currentMusicPage++;
+            const results = await fetchSongs(currentQuery, currentMusicPage);
+            renderTracks(results);
+            document.getElementById('music-content').scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('music-pagination').style.display = results.length > 0 ? 'flex' : 'none';
+        }
+
+        // --- MOVIES LOGIC ---
+        async function findID() {
+            const input = document.getElementById('movies-search-input').value.trim();
+            if (!input) {
+                document.getElementById('movies-results').innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                    <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                    <p>Please search for results!</p>
+                </div>`;
+                lucide.createIcons();
+                return;
+            }
+            const resultsContainer = document.getElementById('movies-results');
+            resultsContainer.innerHTML = '<div class="loader-container"><div class="spinner"></div></div>';
+            
+            try {
+                const response = await fetch("https://api.themoviedb.org/3/search/movie?api_key=0c7387ed17fe3d2959530a2f0ca70022&query=" + encodeURIComponent(input));
+                const data = await response.json();
+                
+                if (!data.results || data.results.length === 0) {
+                    resultsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                        <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
+                        <p>No results found! Try another search.</p>
+                    </div>`;
+                    lucide.createIcons();
+                    return;
+                }
+
+                resultsContainer.innerHTML = data.results.filter(m => m.poster_path).map(movie => {
+                    const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                    const year = movie.release_date ? movie.release_date.split('-')[0] : '';
+                    return `
+                        <div class="track-card" style="cursor:default;">
+                            <img src="${poster}" class="track-art" loading="lazy" style="aspect-ratio:2/3;object-fit:cover;">
+                            <div class="track-title">${movie.title.replace(/'/g, "\\'")}</div>
+                            <div class="track-artist">${year}</div>
+                            <div style="margin-top:12px;">
+                                <button style="width:100%;margin-bottom:8px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="startSmartPlay('${movie.id}')"><i data-lucide="play" size="16"></i> Play Now</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                lucide.createIcons();
+            } catch (err) {
+                resultsContainer.innerHTML = '<div style="text-align:center;width:100%;color:rgba(255,255,255,0.5);">Failed to load movies.</div>';
+            }
+        }
+
+        document.getElementById('movies-search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') findID();
+        });
+
+        function startSmartPlay(movieId) {
+            const switcher = document.getElementById('movie-source-switcher');
+            switcher.innerHTML = `
+                <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'Vidrock')">Vidrock</button>
+                <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'Vidlink')">Vidlink</button>
+                <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'MoviesAPI')">MoviesAPI</button>
+            `;
+            openMovie(movieId, 'Vidrock');
+        }
+
+        let movieActive = false;
+
+        window.onbeforeunload = function() {
+            if (movieActive) return "Are you sure you want to stop watching?";
+        };
+
+        function openMovie(id, server) {
+            movieActive = true;
+            let embedUrl = '';
+            if (server === 'Vidrock') embedUrl = `https://vidrock.net/embed/movie/${id}`; 
+            else if (server === 'Vidlink') embedUrl = `https://vidlink.pro/movie/${id}`;
+            else embedUrl = `https://moviesapi.to/movie/${id}`;
+
+            document.getElementById('movies-tab').style.display = 'none';
+            document.getElementById('movies-player-view').style.display = 'flex';
+            document.getElementById('movie-frame').src = embedUrl;
+            
+            const shield = document.getElementById('movie-click-shield');
+            if (shield) shield.classList.remove('hidden');
+        }
+
+        function closeMovie() {
+            movieActive = false;
+            document.getElementById('movies-player-view').style.display = 'none';
+            document.getElementById('movies-tab').style.display = 'flex';
+            document.getElementById('movie-frame').src = '';
+        }
 
         // --- TOS ---
         function checkTOS() {
@@ -1585,8 +1802,8 @@
 
         function createCardHTML(game) {
             return `
-                <div class="game-card" onclick="openGame('${game.title.replace(/'/g, "\\'")}')">
-                    <img src="/vuna./assets/images/${game.title}.webp" alt="${game.title}" title="${game.title}">
+                <div class="game-card" onclick="openGame('${game.id}', '${game.title.replace(/'/g, "\\'")}')">
+                    <img src="/assets/${game.id}/image.webp" alt="${game.title}" title="${game.title}">
                 </div>
             `;
         }
@@ -1653,7 +1870,7 @@
             }
         }
 
-        function openGame(title) {
+        function openGame(id, title) {
             const gamesContent = document.getElementById('games-content');
             const isFav = favorites.includes(title);
 
@@ -1665,7 +1882,7 @@
                         </button>
                     </div>
                     <div class="game-wrapper" id="game-wrapper">
-                        <iframe src="/vuna./assets/frame/${title}.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="/assets/${id}/frame.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
                         <div class="control-bar">
                             <div class="left">${title}</div>
                             <div class="right">
