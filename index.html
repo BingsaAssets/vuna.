@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="form-action 'none'; child-src 'self' blob: https://vidrock.net https://vidlink.pro https://moviesapi.to;">
+    <meta http-equiv="Content-Security-Policy"
+        content="form-action 'none'; child-src 'self' blob: https://vidrock.net https://vidlink.pro https://moviesapi.to;">
     <title>vuna.</title>
     <!-- Vanta Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -167,7 +168,8 @@
             gap: 15px;
         }
 
-        #music-search-input, #movies-search-input {
+        #music-search-input,
+        #movies-search-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -179,7 +181,8 @@
             transition: all 0.3s;
         }
 
-        #music-search-input:focus, #movies-search-input:focus {
+        #music-search-input:focus,
+        #movies-search-input:focus {
             border-color: rgba(255, 255, 255, 0.4);
             background: rgba(255, 255, 255, 0.08);
         }
@@ -1133,12 +1136,14 @@
                 </div>
 
                 <div class="music-grid" id="music-results">
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                    <div
+                        style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
                         <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
                         <p>Please search for results!</p>
                     </div>
                 </div>
-                <div id="music-pagination" style="display:none; justify-content:center; width:100%; margin-bottom:40px;">
+                <div id="music-pagination"
+                    style="display:none; justify-content:center; width:100%; margin-bottom:40px;">
                     <button class="game-back-btn" onclick="loadNextMusicPage()">
                         Next Page <i data-lucide="arrow-right" size="16"></i>
                     </button>
@@ -1155,7 +1160,8 @@
                     </div>
                 </div>
                 <div class="music-grid" id="movies-results">
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                    <div
+                        style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
                         <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
                         <p>Please search for results!</p>
                     </div>
@@ -1170,9 +1176,11 @@
                     </div>
                     <div class="iframe-wrapper" id="movie-wrapper">
                         <div id="movie-click-shield" class="ad-shield"></div>
-                        <iframe id="movie-frame" src="" class="game-frame" style="height:100%;" frameborder="0" allowfullscreen></iframe>
+                        <iframe id="movie-frame" src="" class="game-frame" style="height:100%;" frameborder="0"
+                            allowfullscreen></iframe>
                     </div>
-                    <div id="movie-source-switcher" style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                    <div id="movie-source-switcher"
+                        style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
                         <!-- Populated by startSmartPlay -->
                     </div>
                 </div>
@@ -1349,18 +1357,18 @@
     <script>
         // --- ANTI-AD DEFENSE SYSTEM ---
         function neutralizeAds() {
-            window.open = function() { 
-                console.warn("Blocked a popup attempt."); 
-                return null; 
+            window.open = function () {
+                console.warn("Blocked a popup attempt.");
+                return null;
             };
 
             const iframes = document.querySelectorAll('iframe');
             iframes.forEach(iframe => {
                 try {
                     if (iframe.contentWindow) {
-                        iframe.contentWindow.open = function() { return null; };
+                        iframe.contentWindow.open = function () { return null; };
                     }
-                } catch (e) {}
+                } catch (e) { }
             });
         }
 
@@ -1369,7 +1377,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const shield = document.getElementById('movie-click-shield');
             if (shield) {
-                shield.addEventListener('click', function() {
+                shield.addEventListener('click', function () {
                     this.classList.add('hidden');
                     console.log("Shield deactivated. Real player accessible.");
                 });
@@ -1508,12 +1516,12 @@
 
         function renderTracks(tracks) {
             if (!tracks || tracks.length === 0) {
-                 resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
+                resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
                      <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
                      <p>No results found! Try another search.</p>
                  </div>`;
-                 lucide.createIcons();
-                 return;
+                lucide.createIcons();
+                return;
             }
             resultsGrid.innerHTML = tracks.map(track => {
                 const cover = `https://resources.tidal.com/images/${track.album.cover.replace(/-/g, '/')}/640x640.jpg`;
@@ -1700,11 +1708,11 @@
             }
             const resultsContainer = document.getElementById('movies-results');
             resultsContainer.innerHTML = '<div class="loader-container"><div class="spinner"></div></div>';
-            
+
             try {
                 const response = await fetch("https://api.themoviedb.org/3/search/movie?api_key=0c7387ed17fe3d2959530a2f0ca70022&query=" + encodeURIComponent(input));
                 const data = await response.json();
-                
+
                 if (!data.results || data.results.length === 0) {
                     resultsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
                         <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
@@ -1750,21 +1758,21 @@
 
         let movieActive = false;
 
-        window.onbeforeunload = function() {
+        window.onbeforeunload = function () {
             if (movieActive) return "Are you sure you want to stop watching?";
         };
 
         function openMovie(id, server) {
             movieActive = true;
             let embedUrl = '';
-            if (server === 'Vidrock') embedUrl = `https://vidrock.net/embed/movie/${id}`; 
+            if (server === 'Vidrock') embedUrl = `https://vidrock.net/embed/movie/${id}`;
             else if (server === 'Vidlink') embedUrl = `https://vidlink.pro/movie/${id}`;
             else embedUrl = `https://moviesapi.to/movie/${id}`;
 
             document.getElementById('movies-tab').style.display = 'none';
             document.getElementById('movies-player-view').style.display = 'flex';
             document.getElementById('movie-frame').src = embedUrl;
-            
+
             const shield = document.getElementById('movie-click-shield');
             if (shield) shield.classList.remove('hidden');
         }
@@ -1802,8 +1810,8 @@
 
         function createCardHTML(game) {
             return `
-                <div class="game-card" onclick="openGame('${game.id}', '${game.title.replace(/'/g, "\\'")}')">
-                    <img src="/assets/${game.id}/image.webp" alt="${game.title}" title="${game.title}">
+                <div class="game-card" onclick="openGame('${game.title}', '${game.title.replace(/'/g, "\\'")}')">
+                    <img src="/assets/${game.title}.webp" alt="${game.title}" title="${game.title}">
                 </div>
             `;
         }
