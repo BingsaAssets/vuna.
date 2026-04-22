@@ -217,13 +217,26 @@
             transform: scale(1);
         }
 
-        .music-grid {
+        .music-grid,
+        .movies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 24px;
             width: 100%;
             max-width: 1100px;
             padding-bottom: 180px;
+        }
+
+        .movies-header-box {
+            width: 100%;
+            max-width: 700px;
+            background: var(--accent-glass);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         /* Centered loader container for search grid */
@@ -894,16 +907,11 @@
             height: 80vh;
         }
 
-        .ad-shield {
-            position: absolute;
-            inset: 0;
-            z-index: 5;
-            background: transparent;
-            cursor: pointer;
-        }
 
-        .ad-shield.hidden {
-            display: none;
+
+        #movie-wrapper a {
+            display: none !important;
+            pointer-events: none !important;
         }
 
         .control-bar {
@@ -1154,12 +1162,12 @@
         <!-- Movies Section -->
         <section id="movies-content" class="page-section">
             <div id="movies-tab" class="tab-inner">
-                <div class="music-header-box" id="movies-header">
+                <div class="movies-header-box" id="movies-header">
                     <div class="search-module">
                         <input type="text" id="movies-search-input" placeholder="Search movies...">
                     </div>
                 </div>
-                <div class="music-grid" id="movies-results">
+                <div class="movies-grid" id="movies-results">
                     <div
                         style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
                         <i data-lucide="search" style="margin-bottom: 10px; opacity: 0.5;"></i>
@@ -1175,7 +1183,6 @@
                         </button>
                     </div>
                     <div class="iframe-wrapper" id="movie-wrapper">
-                        <div id="movie-click-shield" class="ad-shield"></div>
                         <iframe id="movie-frame" src="" class="game-frame" style="height:100%;" frameborder="0"
                             allowfullscreen></iframe>
                     </div>
@@ -1355,34 +1362,7 @@
     </div>
 
     <script>
-        // --- ANTI-AD DEFENSE SYSTEM ---
-        function neutralizeAds() {
-            window.open = function () {
-                console.warn("Blocked a popup attempt.");
-                return null;
-            };
 
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                try {
-                    if (iframe.contentWindow) {
-                        iframe.contentWindow.open = function () { return null; };
-                    }
-                } catch (e) { }
-            });
-        }
-
-        setInterval(neutralizeAds, 500);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const shield = document.getElementById('movie-click-shield');
-            if (shield) {
-                shield.addEventListener('click', function () {
-                    this.classList.add('hidden');
-                    console.log("Shield deactivated. Real player accessible.");
-                });
-            }
-        });
 
         lucide.createIcons();
 
@@ -1696,7 +1676,7 @@
         }
 
         // --- MOVIES LOGIC ---
-        async function findID() {
+        async function searchMovies() {
             const input = document.getElementById('movies-search-input').value.trim();
             if (!input) {
                 document.getElementById('movies-results').innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;">
@@ -1743,7 +1723,7 @@
         }
 
         document.getElementById('movies-search-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') findID();
+            if (e.key === 'Enter') searchMovies();
         });
 
         function startSmartPlay(movieId) {
@@ -1773,8 +1753,18 @@
             document.getElementById('movies-player-view').style.display = 'flex';
             document.getElementById('movie-frame').src = embedUrl;
 
-            const shield = document.getElementById('movie-click-shield');
-            if (shield) shield.classList.remove('hidden');
+            // Forced CSS Injection & Pointer Restriction
+            const frame = document.getElementById('movie-frame');
+            frame.onload = () => {
+                try {
+                    const style = document.createElement('style');
+                    style.innerHTML = 'a { display: none !important; pointer-events: none !important; }';
+                    frame.contentDocument.head.appendChild(style);
+                } catch (e) {
+                    console.warn("Cross-origin restriction: Applying pointer-events block to container instead.");
+                    frame.style.pointerEvents = 'auto'; // Ensure frame is clickable
+                }
+            };
         }
 
         function closeMovie() {
@@ -1805,13 +1795,15 @@
         // --- GAMES DATA & RENDERING ---
         let favorites = JSON.parse(localStorage.getItem('vuna-favorites') || '[]');
         const gamesList = [
-            { id: 1, title: 'Jetpack Joyride' }
+            { id: 1, title: 'Jetpack Joyride' },
+            { id: 2, title: 'Riddle School' }
         ];
 
         function createCardHTML(game) {
+            const escapedTitle = game.title.replace(/'/g, "\\'");
             return `
-                <div class="game-card" onclick="openGame('${game.title}', '${game.title.replace(/'/g, "\\'")}')">
-                    <img src="/assets/${game.title}.webp" alt="${game.title}" title="${game.title}">
+                <div class="game-card" onclick="openGame('${escapedTitle}')">
+                    <img src="/assets/${game.title}/image.webp" alt="${game.title}" title="${game.title}">
                 </div>
             `;
         }
@@ -1878,9 +1870,9 @@
             }
         }
 
-        function openGame(id, title) {
+        function openGame(gameTitle) {
             const gamesContent = document.getElementById('games-content');
-            const isFav = favorites.includes(title);
+            const isFav = favorites.includes(gameTitle);
 
             gamesContent.innerHTML = `
                 <div class="game-view-container tab-inner">
@@ -1890,12 +1882,12 @@
                         </button>
                     </div>
                     <div class="game-wrapper" id="game-wrapper">
-                        <iframe src="/assets/${id}/frame.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="/assets/${gameTitle}/frame.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
                         <div class="control-bar">
-                            <div class="left">${title}</div>
+                            <div class="left">${gameTitle}</div>
                             <div class="right">
                                 <button onclick="toggleMute()" title="Toggle Mute"><i data-lucide="volume-2" id="mute-btn-icon"></i></button>
-                                <button onclick="toggleFav('${title.replace(/'/g, "\\'")}')" title="Toggle Favorite"><i data-lucide="heart" id="fav-btn-icon" fill="${isFav ? 'currentColor' : 'none'}"></i></button>
+                                <button onclick="toggleFav('${gameTitle.replace(/'/g, "\\'")}')" title="Toggle Favorite"><i data-lucide="heart" id="fav-btn-icon" fill="${isFav ? 'currentColor' : 'none'}"></i></button>
                                 <button onclick="goFullscreen()" title="Toggle Fullscreen"><i data-lucide="maximize"></i></button>
                             </div>
                         </div>
