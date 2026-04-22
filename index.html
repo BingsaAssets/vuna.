@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy"
-        content="form-action 'none'; child-src 'self' blob: https://vidrock.net https://vidlink.pro https://moviesapi.to;">
     <title>vuna.</title>
     <!-- Vanta Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -1729,11 +1727,10 @@
         function startSmartPlay(movieId) {
             const switcher = document.getElementById('movie-source-switcher');
             switcher.innerHTML = `
-                <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'Vidrock')">Vidrock</button>
                 <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'Vidlink')">Vidlink</button>
                 <button style="flex:1;max-width:150px;background:var(--accent-glass);border:1px solid var(--border-glass);color:white;padding:10px;border-radius:12px;font-size:0.85rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='var(--accent-glass)'" onclick="openMovie('${movieId}', 'MoviesAPI')">MoviesAPI</button>
             `;
-            openMovie(movieId, 'Vidrock');
+            openMovie(movieId, 'Vidlink');
         }
 
         let movieActive = false;
@@ -1745,8 +1742,7 @@
         function openMovie(id, server) {
             movieActive = true;
             let embedUrl = '';
-            if (server === 'Vidrock') embedUrl = `https://vidrock.net/embed/movie/${id}`;
-            else if (server === 'Vidlink') embedUrl = `https://vidlink.pro/movie/${id}`;
+            if (server === 'Vidlink') embedUrl = `https://vidlink.pro/movie/${id}`;
             else embedUrl = `https://moviesapi.to/movie/${id}`;
 
             document.getElementById('movies-tab').style.display = 'none';
@@ -1803,7 +1799,7 @@
             const escapedTitle = game.title.replace(/'/g, "\\'");
             return `
                 <div class="game-card" onclick="openGame('${escapedTitle}')">
-                    <img src="/assets/${game.title}/image.webp" alt="${game.title}" title="${game.title}">
+                    <img src="./assets/${game.title}/image.webp" alt="${game.title}" title="${game.title}">
                 </div>
             `;
         }
@@ -1882,7 +1878,7 @@
                         </button>
                     </div>
                     <div class="game-wrapper" id="game-wrapper">
-                        <iframe src="/assets/${gameTitle}/frame.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="./assets/${gameTitle}/frame.html" class="game-frame" frameborder="0" allowfullscreen></iframe>
                         <div class="control-bar">
                             <div class="left">${gameTitle}</div>
                             <div class="right">
