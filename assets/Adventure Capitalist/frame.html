@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en-us">
+ 
+<head>
+    <base href="https://rawcdn.githack.com/selenite-cc/selenite-old/9c743188888af0986c8c7b293dbac8f9e421a4ee/adventure-capitalist/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | AdVenture Capitalist!</title>
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="/js/all.js"></script>
+
+</head>
+ 
+<body class="template">
+    <div class="webgl-content">
+        <div id="unityContainer" style="width: 960px; height: 600px; padding: 0px; margin: 0px; border: 0px; position: relative; background: rgb(35, 31, 32);">
+          
+      <canvas  class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" id="canvas"width=335 height=667 style="width: 100%; height: 100%; background: #231F20"></canvas>
+      
+    <div id="loadingBox">
+        <div id="bgBar"></div>
+        <div id="progressBar"></div>
+        <p id="loadingInfo">Loading...</p>
+    </div>
+    <script type='text/javascript'>
+        // connect to canvas
+        var Module = {
+            TOTAL_MEMORY: 201326592,
+            filePackagePrefixURL: "Release/",
+            memoryInitializerPrefixURL: "Release/",
+            preRun: [],
+            postRun: [],
+            print: (function() {
+                return function(text) {
+                    console.log(text);
+                };
+            })(),
+            printErr: function(text) {
+                console.error(text);
+            },
+            canvas: document.getElementById('canvas'),
+            progress: null,
+            setStatus: function(text) {
+                if (this.progress == null) {
+                    if (typeof UnityProgress != 'function')
+                        return;
+                    this.progress = new UnityProgress(canvas);
+                }
+                if (!Module.setStatus.last) Module.setStatus.last = {
+                    time: Date.now(),
+                    text: ''
+                };
+                if (text === Module.setStatus.text) return;
+                this.progress.SetMessage(text);
+                var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+                if (m)
+                    this.progress.SetProgress(parseInt(m[2]) / parseInt(m[4]));
+                if (text === "")
+                    this.progress.Clear()
+            },
+            totalDependencies: 0,
+            monitorRunDependencies: function(left) {
+                this.totalDependencies = Math.max(this.totalDependencies, left);
+                Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+            }
+        };
+        Module.setStatus('Downloading (0.0/1)');
+    </script>
+    <script src="Release/UnityConfig.js"></script>
+    <script src="Release/fileloader.js"></script>
+          <script>
+if (!console.logError) {
+    console.logError = function () {
+        console.error.apply(console, arguments);
+    };
+}
+</script>
+    <script>
+        if (!(!Math.fround)) {
+            var script = document.createElement('script');
+            script.src = "Release/webgl.js";
+            document.body.appendChild(script);
+        } else {
+            var codeXHR = new XMLHttpRequest();
+            codeXHR.open('GET', 'Release/webgl.js', true);
+            codeXHR.onload = function() {
+                var code = codeXHR.responseText;
+                if (!Math.fround) {
+                    try {
+                        console.log('optimizing out Math.fround calls');
+                        var m = /var ([^=]+)=global\.Math\.fround;/.exec(code);
+                        var minified = m[1];
+                        if (!minified) throw 'fail';
+                        var startAsm = code.indexOf('// EMSCRIPTEN_START_FUNCS');
+                        var endAsm = code.indexOf('// EMSCRIPTEN_END_FUNCS');
+                        var asm = code.substring(startAsm, endAsm);
+                        do {
+                            var moar = false; // we need to re-do, as x(x( will not be fixed
+                            asm = asm.replace(new RegExp('[^a-zA-Z0-9\\$\\_]' + minified + '\\(', 'g'), function(s) {
+                                moar = true;
+                                return s[0] + '('
+                            });
+                        } while (moar);
+                        code = code.substring(0, startAsm) + asm + code.substring(endAsm);
+                        code = code.replace("'use asm'", "'almost asm'");
+                    } catch (e) {
+                        console.log('failed to optimize out Math.fround calls ' + e)
+                    }
+                }
+                var blob = new Blob([code], {
+                    type: 'text/javascript'
+                });
+                codeXHR = null;
+                var src = URL.createObjectURL(blob);
+                var script = document.createElement('script');
+                script.src = URL.createObjectURL(blob);
+                script.onload = function() {
+                    URL.revokeObjectURL(script.src);
+                };
+                document.body.appendChild(script);
+            };
+            codeXHR.send(null);
+        }
+    </script>
+</body>
+ 
+</html> <!DOCTYPE html>
+
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+
+<html lang="en-us">
+<base href="https://cdn.jsdelivr.net/gh/Stinkalistic/UGS@main/UNITY/sniper/">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>game :D</title>
+  <style>
+    html, body {
+      background: #000;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      padding: 0;
+      margin: 0;
+    }
+
+    #gameContainer {
+      background: transparent !important;
+      position: absolute;
+    }
+
+    #gameContainer canvas {
+      position: absolute;
+    }
+
+    #gameContainer canvas[data-pixel-art="true"] {
+      image-rendering: optimizeSpeed;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+
+    #loading-text {
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="gameContainer">
+    <canvas id="unity-canvas" data-pixel-art></canvas>
+    <div id="loading-text">LOADING...</div>
+  </div>
+
+  <script src="Build/loader.js"></script>
+  <script>
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      const meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.head.appendChild(meta);
+    }
+
+    const loadingText = document.querySelector("#loading-text");
+    let totalBytes = 0;
+    let loadedBytes = 0;
+
+    function formatSize(bytes) {
+      if (bytes > 1024 * 1024 * 1024) return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+      if (bytes > 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+      if (bytes > 1024) return (bytes / 1024).toFixed(2) + " KB";
+      return bytes + " B";
+    }
+
+    async function getSize(url) {
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        return parseInt(res.headers.get("Content-Length") || "0", 10);
+      } catch {
+        return 0;
+      }
+    }
+
+    async function fetchPart(url) {
+      const response = await fetch(url);
+      if (!response.body) {
+        const ab = await response.arrayBuffer();
+        loadedBytes += ab.byteLength;
+        loadingText.textContent = `LOADING... ${formatSize(loadedBytes)} / ${formatSize(totalBytes)}`;
+        return new Uint8Array(ab);
+      }
+      const reader = response.body.getReader();
+      const chunks = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        received += value.length;
+        loadedBytes += value.length;
+        chunks.push(value);
+        const percent = totalBytes > 0 ? ((loadedBytes / totalBytes) * 100).toFixed(1) : "?";
+        loadingText.textContent = `LOADING... ${formatSize(loadedBytes)} / ${formatSize(totalBytes)} (${percent}%)`;
+      }
+      const full = new Uint8Array(received);
+      let offset = 0;
+      for (let chunk of chunks) {
+        full.set(chunk, offset);
+        offset += chunk.length;
+      }
+      return full;
+    }
+
+    async function mergeParts(parts, mimeType) {
+      const buffers = await Promise.all(parts.map(fetchPart));
+      const totalLen = buffers.reduce((s, b) => s + b.length, 0);
+      const concatenated = new Uint8Array(totalLen);
+      let off = 0;
+      for (let b of buffers) {
+        concatenated.set(b, off);
+        off += b.length;
+      }
+      return URL.createObjectURL(new Blob([concatenated], { type: mimeType || undefined }));
+    }
+
+    function getParts(file, count) {
+      const parts = [];
+      for (let i = 1; i <= count; i++) parts.push(file + ".part" + i);
+      return parts;
+    }
+
+    (async () => {
+      try {
+        const dataParts = getParts("Build/New folder (2).data", 7);
+        const wasmParts = getParts("Build/New folder (2).wasm", 2);
+        const allParts = [...dataParts, ...wasmParts, "Build/framework.js"];
+        const sizes = await Promise.all(allParts.map(getSize));
+        totalBytes = sizes.reduce((a, b) => a + b, 0);
+
+        const [dataUrl, wasmUrl, frameworkUrl] = await Promise.all([
+          mergeParts(dataParts),
+          mergeParts(wasmParts),
+          mergeParts(["Build/framework.js"], 'application/javascript')
+        ]);
+
+        const canvas = document.querySelector("#unity-canvas");
+        let scaleToFit = true;
+
+        function onResize() {
+          const container = canvas.parentElement;
+          let w, h;
+          if (scaleToFit) {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            const r = 540 / 960;
+            if (w * r > window.innerHeight) w = Math.min(w, Math.ceil(h / r));
+            h = Math.floor(w * r);
+          } else {
+            w = 960;
+            h = 540;
+          }
+          container.style.width = canvas.style.width = w + "px";
+          container.style.height = canvas.style.height = h + "px";
+          container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+          container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+        }
+        window.addEventListener('resize', onResize);
+        onResize();
+
+        // Wait until Unity loader is available
+        await (async function waitForLoader() {
+          if (typeof createUnityInstance === 'function') return;
+          await new Promise(resolve => {
+            const check = setInterval(() => {
+              if (typeof createUnityInstance === 'function') {
+                clearInterval(check);
+                resolve();
+              }
+            }, 50);
+          });
+        })();
+
+        const config = {
+          dataUrl: dataUrl,
+          frameworkUrl: frameworkUrl,
+          codeUrl: wasmUrl,
+          streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/Stinkalistic/UGS@main/UNITY/sniper/StreamingAssets",
+          companyName: "",
+          productName: "",
+          productVersion: ""
+        };
+
+        createUnityInstance(canvas, config, (progress) => {
+          const percent = Math.round(progress * 100);
+          loadingText.textContent = `LOADING... ${percent}%`;
+        }).then((unityInstance) => {
+          loadingText.remove();
+        }).catch((message) => {
+          loadingText.textContent = 'Failed to start Unity: ' + message;
+          console.error(message);
+        });
+      } catch (err) {
+        loadingText.textContent = 'ERROR: ' + (err.message || err);
+        console.error(err);
+      }
+    })();
+  </script>
+</body>
+  </html>
