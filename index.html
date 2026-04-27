@@ -899,7 +899,7 @@
             display: flex;
             flex-direction: column;
             background: #000;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         .iframe-wrapper {
@@ -1054,29 +1054,29 @@
             }
         }
     </style>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCMXR95JeE-LqxpdZA7ZBQA3FtX8HRSW_E",
-    authDomain: "vuna-logins.firebaseapp.com",
-    projectId: "vuna-logins",
-    storageBucket: "vuna-logins.firebasestorage.app",
-    messagingSenderId: "428244502421",
-    appId: "1:428244502421:web:bbcf561aef75a43263d89c",
-    measurementId: "G-2D91YB6LBW"
-  };
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMXR95JeE-LqxpdZA7ZBQA3FtX8HRSW_E",
+            authDomain: "vuna-logins.firebaseapp.com",
+            projectId: "vuna-logins",
+            storageBucket: "vuna-logins.firebasestorage.app",
+            messagingSenderId: "428244502421",
+            appId: "1:428244502421:web:bbcf561aef75a43263d89c",
+            measurementId: "G-2D91YB6LBW"
+        };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
 </head>
 
 <body>
@@ -1814,11 +1814,14 @@
         // --- GAMES DATA & RENDERING ---
         let favorites = JSON.parse(localStorage.getItem('vuna-favorites') || '[]');
         const gamesList = [
-            { id: 1, title: 'Jetpack Joyride' },
-            { id: 2, title: 'Riddle School' },
+            { id: 1, title: 'A Small World Cup' },
+            { id: 2, title: 'Jetpack Joyride' },
             { id: 3, title: 'Monkey Mart' },
-            { id: 4, title: 'Adventure Capitalist'}
-            ]
+            { id: 4, title: 'Riddle School' },
+            { id: 5, title: 'Stickman Hook' },
+            { id: 6, title: 'Subway Surfers' },
+            { id: 7, title: 'UGS' }
+        ]
 
         function createCardHTML(game) {
             const escapedTitle = game.title.replace(/'/g, "\\'");
