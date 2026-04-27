@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Subway Surfers</title>
+</head>
+<body>
+
+    <script>
+        window.config = {
+            loader: 'unity',
+            debug: false,
+            // Set both ratios equal to a very wide/narrow range so the
+            // resize function never letterboxes — game fills the full viewport
+            maxRatio: 100,
+            minRatio: 0.01,
+            title: 'Subway Surfers',
+            unityWebglLoaderUrl: './UnityLoader.2019.2.js',
+            unityWebglBuildUrl: 'Build/SanFrancisco.json',
+            fileSize: 35,
+            numScreenshots: 0,
+            thumbnail: 'data:image/webp;base64,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',
+            cachedDecompressedFileSizes: {
+                'SanFrancisco.asm.code.unityweb':       9077143,
+                'SanFrancisco.asm.framework.unityweb':  86369,
+                'SanFrancisco.asm.memory.unityweb':     951447,
+                'SanFrancisco.data.unityweb':           18323917,
+                'SanFrancisco.wasm.code.unityweb':      7279617,
+                'SanFrancisco.wasm.framework.unityweb': 90693,
+            },
+        };
+    </script>
+
+    <script>
+        window.PokiSDK = {
+            init:                           function() { return Promise.resolve(); },
+            commercialBreak:                function() { return Promise.resolve(); },
+            rewardedBreak:                  function() { return Promise.resolve(false); },
+            gameLoadingStart:               function() {},
+            gameLoadingFinished:            function() {},
+            gameLoadingProgress:            function() {},
+            gameInteractive:                function() {},
+            roundStart:                     function() {},
+            roundEnd:                       function() {},
+            gameplayStart:                  function() {},
+            gameplayStop:                   function() {},
+            happyTime:                      function() {},
+            setDebug:                       function() {},
+            logError:                       function() {},
+            customEvent:                    function() {},
+            setPlayerAge:                   function() {},
+            togglePlayerAdvertisingConsent: function() {},
+            displayAd:                      function() {},
+            destroyAd:                      function() {},
+            getLeaderboard:                 function() { return Promise.resolve([]); },
+            sendHighscore:                  function() {},
+        };
+    </script>
+
+    <script src="./4399.js"></script>
+    <script src="./unity.js"></script>
+
+</body>
+</html>
